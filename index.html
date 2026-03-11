@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Gen Digital LK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #06b6d4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+        body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .glass-nav { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(6, 182, 212, 0.2); }
+        .neon-glow { box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .neon-glow:hover { box-shadow: 0 0 25px rgba(34, 211, 238, 0.7); }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-slate-900">
+
+    <nav class="fixed top-0 z-40 w-full glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 font-extrabold text-2xl md:text-3xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-500">
+                    Next Gen Digital LK
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-slate-300 hover:text-cyan-400 font-medium transition">Home</a>
+                    <a href="#products" class="text-slate-300 hover:text-cyan-400 font-medium transition">Products</a>
+                    <a href="#how-to-buy" class="text-slate-300 hover:text-cyan-400 font-medium transition">How to Buy</a>
+                    <a href="#reviews" class="text-slate-300 hover:text-cyan-400 font-medium transition">Reviews</a>
+                </div>
+                <button onclick="toggleCart()" class="relative text-cyan-400 hover:text-cyan-300 transition text-2xl p-2 focus:outline-none">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCountBadge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-40 pb-24 flex flex-col items-center text-center px-4 overflow-hidden">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-600/20 rounded-full blur-[100px] -z-10"></div>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-400 mb-6 drop-shadow-lg">
+            Next Gen Digital LK
+        </h1>
+        <p class="text-xl md:text-2xl text-cyan-100/80 mb-12 max-w-2xl font-light tracking-wide">
+            Sri Lanka’s Trusted Marketing & Software Partner 🇱🇰
+        </p>
+        <a href="#products" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 px-10 rounded-full neon-glow transition duration-300 text-lg flex items-center gap-3">
+            <i class="fa-solid fa-compass"></i> Browse Products
+        </a>
+    </section>
+
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+        <h2 class="text-4xl font-bold text-center mb-10 text-white">Our <span class="text-cyan-400">Software</span></h2>
+        
+        <div class="max-w-2xl mx-auto mb-16 relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-cyan-500 group-focus-within:text-cyan-300 transition"></i>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search for AutoCAD, Canva, etc..." 
+                class="w-full bg-slate-900/50 border border-slate-700 hover:border-cyan-500/50 rounded-2xl py-4 pl-12 pr-6 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition text-lg backdrop-blur-sm shadow-inner">
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            </div>
+    </section>
+
+    <section id="how-to-buy" class="bg-slate-900/50 py-20 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16 text-white">How to Buy in <span class="text-cyan-400">3 Easy Steps</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+                <div class="hidden md:block absolute top-8 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent -z-10"></div>
+                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
+                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">1</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Add to Cart</h3>
+                    <p class="text-slate-400">Search and select the software you need, view details, and add them to your cart.</p>
+                </div>
+                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
+                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">2</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Checkout to WhatsApp</h3>
+                    <p class="text-slate-400">Open your cart and click Checkout. This sends your full order list directly to our WhatsApp.</p>
+                </div>
+                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
+                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">3</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Pay & Activate</h3>
+                    <p class="text-slate-400">Receive payment details, transfer the amount, and get your software activated instantly!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <h2 class="text-3xl font-bold text-center mb-12 text-white">What Our <span class="text-cyan-400">Clients Say</span></h2>
+        <div id="reviewsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+    </section>
+
+    <footer class="bg-[#020617] border-t border-slate-800 pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500"></div>
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-6">Next Gen Digital LK</h3>
+            <p class="text-slate-400 mb-8 max-w-md mx-auto">Sri Lanka's premier destination for genuine software activations and digital marketing solutions.</p>
+            <div class="flex justify-center space-x-6 mb-10 text-2xl">
+                <a href="https://www.facebook.com/profile.php?id=61576057352890" target="_blank" class="text-slate-500 hover:text-cyan-400 transition transform hover:scale-110"><i class="fa-brands fa-facebook"></i></a>
+                <a href="http://www.youtube.com/@nextgendigitallk" target="_blank" class="text-slate-500 hover:text-red-500 transition transform hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://wa.me/94755935689" target="_blank" class="text-slate-500 hover:text-green-400 transition transform hover:scale-110"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <p class="text-slate-600 text-sm">© 2026 Next Gen Digital LK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="productModal" class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-8 relative shadow-[0_0_40px_rgba(6,182,212,0.15)] transform scale-95 transition-transform duration-300" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-3xl font-light leading-none transition">&times;</button>
+            
+            <h3 id="modalTitle" class="text-2xl font-bold text-white mb-2">Product Name</h3>
+            <p class="text-2xl font-extrabold text-cyan-400 mb-6" id="modalPrice">Rs. 0</p>
+            
+            <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-xl mb-8">
+                <p id="modalDescription" class="text-slate-300 text-sm font-medium leading-relaxed space-y-2"></p>
+            </div>
+
+            <button id="modalAddToCartBtn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-3.5 px-4 rounded-xl transition duration-300 flex items-center justify-center gap-2 shadow-lg">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <div id="cartSidebarOverlay" class="fixed inset-0 z-[70] hidden bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+    <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-slate-900 border-l border-slate-800 z-[80] transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+            <h2 class="text-2xl font-bold text-white flex items-center gap-3"><i class="fa-solid fa-cart-shopping text-cyan-400"></i> Your Cart</h2>
+            <button onclick="toggleCart()" class="text-slate-400 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+            </div>
+
+        <div class="p-6 border-t border-slate-800 bg-slate-950">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-slate-400 font-medium text-lg">Total</span>
+                <span id="cartTotal" class="text-2xl font-bold text-cyan-400">Rs. 0</span>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-400 text-slate-900 font-bold py-4 rounded-xl transition duration-300 flex justify-center items-center gap-2 shadow-lg">
+                <i class="fa-brands fa-whatsapp text-xl"></i> Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 border border-cyan-500 text-white px-6 py-3 rounded-full shadow-2xl z-[90] transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-cyan-400"></i>
+        <span id="toastMessage">Item added to cart!</span>
+    </div>
+
+    <script>
+        const products = [
+            { name: "Autodesk Full Bundle", price: 4000 }, { name: "3ds Max", price: 2000 }, { name: "Flame", price: 2000 }, { name: "AutoCAD Web", price: 2000 }, { name: "Autodesk Construction Cloud", price: 2000 }, { name: "AutoCAD", price: 2000 }, { name: "AutoCAD LT", price: 2000 }, { name: "Advance Steel", price: 2000 }, { name: "Alias AutoStudio", price: 2000 }, { name: "Arnold", price: 2000 }, { name: "Fabrication CADmep", price: 2000 }, { name: "Fabrication CAMduct", price: 2000 }, { name: "Civil 3D", price: 2000 }, { name: "Cloud Worksharing", price: 2000 }, { name: "Fabrication ESTmep", price: 2000 }, { name: "Fusion with FeatureCAM", price: 2000 }, { name: "Fusion with Moldflow Adviser", price: 2000 }, { name: "Factory Design Utilities", price: 2000 }, { name: "Fusion", price: 2000 }, { name: "Golaem", price: 2000 }, { name: "Inventor Professional", price: 2000 }, { name: "Inventor Tolerance Analysis", price: 2000 }, { name: "InfraWorks", price: 2000 }, { name: "Maya", price: 2000 }, { name: "Mudbox", price: 2000 }, { name: "Moldflow Insight", price: 2000 }, { name: "MotionBuilder", price: 2000 }, { name: "Navisworks Manage", price: 2000 }, { name: "Netfabb – Premium", price: 2000 }, { name: "Inventor Nastran", price: 2000 }, { name: "Point Layout", price: 2000 }, { name: "PowerInspect – Ultimate", price: 2000 }, { name: "PowerShape – Ultimate", price: 2000 }, { name: "ReCap Pro", price: 2000 }, { name: "Robot Structural Analysis Professional", price: 2000 }, { name: "Revit", price: 2000 }, { name: "Structural Bridge Design", price: 2000 }, { name: "CFD – Ultimate", price: 2000 }, { name: "Forma", price: 2000 }, { name: "Inventor Nesting", price: 2000 }, { name: "Vehicle Tracking", price: 2000 }, { name: "Vault Professional", price: 2000 }, { name: "VRED Professional", price: 2000 }, { name: "Canva Pro", price: 400 }, { name: "Adobe Bundle (Pre Activated) 2025", price: 1500 }, { name: "Sketch Up (Pre Activated) 2023", price: 990 }
+        ];
+
+        let cart = [];
+        let currentViewingProduct = null;
+
+        const grid = document.getElementById('productGrid');
+        const searchInput = document.getElementById('searchInput');
+        const modal = document.getElementById('productModal');
+        const modalContent = document.getElementById('modalContent');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartSidebarOverlay = document.getElementById('cartSidebarOverlay');
+        const toast = document.getElementById('toast');
+
+        // Render Products
+        function renderProducts(items) {
+            grid.innerHTML = '';
+            if(items.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-10"><i class="fa-solid fa-box-open text-4xl text-slate-600 mb-3"></i><p class="text-slate-400 text-lg">No products found matching your search.</p></div>';
+                return;
+            }
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900 border border-slate-700 hover:border-cyan-500/50 rounded-xl p-5 flex flex-col justify-between transition-colors shadow-lg shadow-black/30';
+                
+                const isBundle = product.name.includes("Full Bundle");
+                
+                card.innerHTML = `
+                    <div class="mb-5">
+                        ${isBundle ? '<span class="inline-block bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded mb-3">BEST VALUE</span>' : ''}
+                        <h3 class="text-[1.1rem] font-bold text-white mb-2 leading-tight">${product.name}</h3>
+                        <p class="text-cyan-400 font-semibold text-base">Rs. ${product.price.toLocaleString()}</p>
+                    </div>
+                    <button onclick="openModal('${product.name}', ${product.price})" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-2.5 rounded-lg transition duration-200 text-sm">
+                        View Details
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Live Search
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(filtered);
+        });
+
+        // Product Modal Logic
+        function openModal(name, price) {
+            currentViewingProduct = { name, price };
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalPrice').innerText = `Rs. ${price.toLocaleString()}`;
+            
+            let descHTML = "";
+            if(name.includes("Canva")) {
+                descHTML = `<div class="flex items-start gap-3"><i class="fa-solid fa-star text-cyan-400 mt-1"></i><span>3 Year Activations With 01 Year Warranty</span></div>
+                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-envelope text-cyan-400 mt-1"></i><span>Customer Email Activations</span></div>`;
+            } else if(name.includes("Adobe") || name.includes("Sketch Up")) {
+                descHTML = `<div class="flex items-start gap-3"><i class="fa-brands fa-google-drive text-cyan-400 mt-1"></i><span>Direct Google Drive Access</span></div>`;
+            } else {
+                descHTML = `<div class="flex items-start gap-3"><i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i><span>Licence Valid Until 2028 June 01</span></div>
+                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-layer-group text-cyan-400 mt-1"></i><span>Supported Versions: 2023, 2024, 2025, 2026</span></div>
+                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-envelope text-cyan-400 mt-1"></i><span>Customer Email Activations</span></div>`;
+            }
+            document.getElementById('modalDescription').innerHTML = descHTML;
+
+            document.getElementById('modalAddToCartBtn').onclick = () => {
+                addToCart(currentViewingProduct);
+                closeModal();
+            };
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Cart Logic
+        function addToCart(product) {
+            cart.push(product);
+            updateCartUI();
+            showToast(`${product.name} added to cart!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+            const badge = document.getElementById('cartCountBadge');
+            
+            if(cart.length > 0) {
+                badge.innerText = cart.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+
+            if(cart.length === 0) {
+                container.innerHTML = '<div class="text-center text-slate-500 mt-10"><i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i><p>Your cart is empty</p></div>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    const el = document.createElement('div');
+                    el.className = 'flex justify-between items-center bg-slate-950 border border-slate-800 p-4 rounded-xl';
+                    el.innerHTML = `
+                        <div class="flex-1 pr-4">
+                            <h4 class="text-white font-semibold text-sm line-clamp-2 leading-snug">${item.name}</h4>
+                            <p class="text-cyan-400 font-bold text-sm mt-1">Rs. ${item.price.toLocaleString()}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="w-8 h-8 flex items-center justify-center bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+
+            totalEl.innerText = `Rs. ${total.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            const isClosed = cartSidebar.classList.contains('translate-x-full');
+            if(isClosed) {
+                cartSidebar.classList.remove('translate-x-full');
+                cartSidebarOverlay.classList.remove('hidden');
+                setTimeout(() => cartSidebarOverlay.classList.remove('opacity-0'), 10);
+            } else {
+                cartSidebar.classList.add('translate-x-full');
+                cartSidebarOverlay.classList.add('opacity-0');
+                setTimeout(() => cartSidebarOverlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) {
+                showToast("Your cart is empty!");
+                return;
+            }
+            
+            let total = 0;
+            let itemList = cart.map((item, index) => {
+                total += item.price;
+                return `${index + 1}. ${item.name}`;
+            }).join('%0A');
+
+            const message = `Hello Next Gen Digital LK! 🇱🇰%0AI want to buy the following items:%0A%0A${itemList}%0A%0A*Total Value: Rs. ${total.toLocaleString()}*%0A%0APlease send me the payment details.`;
+            const waLink = `https://wa.me/94755935689?text=${message}`;
+            
+            window.open(waLink, '_blank');
+        }
+
+        // Toast Notification
+        function showToast(msg) {
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Fetch CSV Reviews
+        async function loadReviews() {
+            const revGrid = document.getElementById('reviewsGrid');
+            try {
+                const response = await fetch('reviews.csv');
+                if (!response.ok) throw new Error('CSV not found');
+                const data = await response.text();
+                
+                const lines = data.split('\n').filter(line => line.trim() !== '');
+                if (lines.length === 0 || (lines.length === 1 && lines[0].includes('CustomerName'))) throw new Error('No data');
+
+                revGrid.innerHTML = '';
+                let startIndex = lines[0].includes('CustomerName') ? 1 : 0;
+                
+                for(let i = startIndex; i < lines.length; i++) {
+                    const [name, ...reviewTextArr] = lines[i].split(',');
+                    const text = reviewTextArr.join(','); 
+                    
+                    if(name && text) {
+                        const card = document.createElement('div');
+                        card.className = 'bg-slate-900 border border-slate-800 rounded-2xl p-8 relative';
+                        card.innerHTML = `
+                            <i class="fa-solid fa-quote-left text-4xl text-slate-800 absolute top-4 left-4 -z-0"></i>
+                            <div class="relative z-10">
+                                <p class="text-white text-lg font-medium mb-6 leading-relaxed">"${text.trim()}"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center border border-cyan-500/30">
+                                        <i class="fa-solid fa-user text-cyan-400 text-sm"></i>
+                                    </div>
+                                    <p class="text-cyan-400 font-bold uppercase tracking-wider text-sm">${name.trim()}</p>
+                                </div>
+                            </div>
+                        `;
+                        revGrid.appendChild(card);
+                    }
+                }
+            } catch (error) {
+                revGrid.innerHTML = `
+                    <div class="col-span-full text-center text-slate-500 bg-slate-900 border border-slate-800 rounded-2xl p-10">
+                        <i class="fa-regular fa-comment-dots text-4xl mb-3"></i>
+                        <p>Customer reviews will appear here soon.</p>
+                        <p class="text-sm mt-2">(Create <code>reviews.csv</code> in the same folder to add reviews)</p>
+                    </div>`;
+            }
+        }
+
+        // Initialize
+        renderProducts(products);
+        loadReviews();
+        updateCartUI();
+    </script>
+</body>
+</html>

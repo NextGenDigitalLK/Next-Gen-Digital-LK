@@ -24,8 +24,15 @@
         ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
         body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .glass-nav { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(6, 182, 212, 0.2); }
-        .neon-glow { box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
-        .neon-glow:hover { box-shadow: 0 0 25px rgba(34, 211, 238, 0.7); }
+        
+        @keyframes flash { 0%, 100% { color: #22d3ee; } 50% { color: #ef4444; } }
+        .animate-flash { animation: flash 1.5s infinite; }
+
+        #reviewsContainer { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+        #reviewsContainer::-webkit-scrollbar { display: none; }
+        .review-card { flex: 0 0 100%; scroll-snap-align: center; }
+        @media (min-width: 768px) { .review-card { flex: 0 0 50%; } }
+        @media (min-width: 1024px) { .review-card { flex: 0 0 33.333%; } }
     </style>
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-slate-900">
@@ -33,366 +40,393 @@
     <nav class="fixed top-0 z-40 w-full glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 font-extrabold text-2xl md:text-3xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-500">
-                    Next Gen Digital LK
+                <div class="flex items-center gap-3">
+                    <img src="LOGO_HERE" alt="" class="h-10 w-10 object-contain rounded-lg border border-cyan-500/30 hidden" id="siteLogo" onerror="this.classList.add('hidden')">
+                    <div class="font-extrabold text-xl md:text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500">
+                        Next Gen Digital LK
+                    </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="text-slate-300 hover:text-cyan-400 font-medium transition">Home</a>
-                    <a href="#products" class="text-slate-300 hover:text-cyan-400 font-medium transition">Products</a>
-                    <a href="#how-to-buy" class="text-slate-300 hover:text-cyan-400 font-medium transition">How to Buy</a>
-                    <a href="#reviews" class="text-slate-300 hover:text-cyan-400 font-medium transition">Reviews</a>
+                    <a href="#home" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Home</a>
+                    <a href="#special-offer" class="animate-flash font-bold text-sm flex items-center gap-1"><i class="fa-solid fa-fire text-xs"></i> Special Offer</a>
+                    <a href="#products" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Products</a>
+                    <a href="#how-to-buy" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">How to Buy</a>
+                    <a href="#reviews" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Reviews</a>
                 </div>
                 <button onclick="toggleCart()" class="relative text-cyan-400 hover:text-cyan-300 transition text-2xl p-2 focus:outline-none">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cartCountBadge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+                    <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-[#0f172a] shadow-md hidden">0</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="relative pt-40 pb-24 flex flex-col items-center text-center px-4 overflow-hidden">
+    <section id="home" class="relative pt-40 pb-20 flex flex-col items-center text-center px-4 overflow-hidden">
         <div class="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-600/20 rounded-full blur-[100px] -z-10"></div>
-        <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-400 mb-6 drop-shadow-lg">
-            Next Gen Digital LK
-        </h1>
-        <p class="text-xl md:text-2xl text-cyan-100/80 mb-12 max-w-2xl font-light tracking-wide">
-            Sri Lanka’s Trusted Marketing & Software Partner 🇱🇰
-        </p>
-        <a href="#products" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 px-10 rounded-full neon-glow transition duration-300 text-lg flex items-center gap-3">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-400 mb-6 drop-shadow-lg uppercase tracking-tight">Next Gen Digital LK</h1>
+        <p class="text-xl md:text-2xl text-cyan-100/80 mb-10 max-w-2xl font-light italic">Sri Lanka’s Trusted Marketing & Software Partner 🇱🇰</p>
+        <a href="#products" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.4)] transition text-lg flex items-center gap-3">
             <i class="fa-solid fa-compass"></i> Browse Products
         </a>
     </section>
 
-    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
-        <h2 class="text-4xl font-bold text-center mb-10 text-white">Our <span class="text-cyan-400">Software</span></h2>
+    <section id="special-offer" class="max-w-5xl mx-auto px-4 py-16">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-cyan-500/50 rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+                <div class="text-center md:text-left space-y-4">
+                    <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Limited Time Deal</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">Autodesk <br><span class="text-cyan-400">Full Bundle</span></h2>
+                    <p class="text-slate-400 text-lg italic">Complete Access to 40+ Premium Softwares!</p>
+                    <div class="flex items-center justify-center md:justify-start gap-4">
+                        <span class="text-4xl font-bold text-white">Rs. 4,000</span>
+                        <span class="text-slate-500 line-through text-xl">Rs. 85,000</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-700 p-8 rounded-2xl text-center min-w-[280px]">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">Sale Ends In</p>
+                    <div id="countdown" class="flex justify-center gap-4 text-white">
+                        <div class="flex flex-col"><span id="hours" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Hours</span></div>
+                        <div class="flex flex-col"><span id="minutes" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Mins</span></div>
+                        <div class="flex flex-col"><span id="seconds" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Secs</span></div>
+                    </div>
+                    <button onclick="openModal('Autodesk Full Bundle', 4000, 'Autodesk')" class="mt-8 w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg uppercase tracking-widest">Buy Bundle Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="max-w-7xl mx-auto px-4 py-20 relative">
+        <h2 class="text-4xl font-bold text-center mb-10 text-white uppercase tracking-wider">Our <span class="text-cyan-400">Software</span></h2>
         
-        <div class="max-w-2xl mx-auto mb-16 relative group">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fa-solid fa-magnifying-glass text-cyan-500 group-focus-within:text-cyan-300 transition"></i>
-            </div>
-            <input type="text" id="searchInput" placeholder="Search for AutoCAD, Canva, etc..." 
-                class="w-full bg-slate-900/50 border border-slate-700 hover:border-cyan-500/50 rounded-2xl py-4 pl-12 pr-6 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition text-lg backdrop-blur-sm shadow-inner">
+        <div class="max-w-2xl mx-auto mb-8 relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><i class="fa-solid fa-magnifying-glass text-cyan-500"></i></div>
+            <input type="text" id="searchInput" placeholder="Search software (AutoCAD, Canva, Photoshop etc...)" class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl py-4 pl-12 pr-6 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition text-lg backdrop-blur-sm shadow-inner">
         </div>
 
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            </div>
+        <div class="flex flex-wrap justify-center gap-3 mb-12" id="categoryButtons">
+            <button onclick="filterCategory('All')" class="cat-btn active bg-cyan-500 text-slate-950 px-6 py-2.5 rounded-full font-bold transition shadow-[0_0_15px_rgba(6,182,212,0.4)]">All Products</button>
+            <button onclick="filterCategory('Adobe')" class="cat-btn bg-slate-900 border border-slate-700 text-slate-300 px-6 py-2.5 rounded-full font-bold hover:border-cyan-500 hover:text-white transition">Adobe</button>
+            <button onclick="filterCategory('Digital Assets')" class="cat-btn bg-slate-900 border border-slate-700 text-slate-300 px-6 py-2.5 rounded-full font-bold hover:border-cyan-500 hover:text-white transition">Digital Assets</button>
+            <button onclick="filterCategory('Autodesk')" class="cat-btn bg-slate-900 border border-slate-700 text-slate-300 px-6 py-2.5 rounded-full font-bold hover:border-cyan-500 hover:text-white transition">Autodesk</button>
+            <button onclick="filterCategory('Others')" class="cat-btn bg-slate-900 border border-slate-700 text-slate-300 px-6 py-2.5 rounded-full font-bold hover:border-cyan-500 hover:text-white transition">Others</button>
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
 
-    <section id="how-to-buy" class="bg-slate-900/50 py-20 border-y border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-16 text-white">How to Buy in <span class="text-cyan-400">3 Easy Steps</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
-                <div class="hidden md:block absolute top-8 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent -z-10"></div>
-                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
-                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">1</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Add to Cart</h3>
-                    <p class="text-slate-400">Search and select the software you need, view details, and add them to your cart.</p>
-                </div>
-                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
-                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">2</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Checkout to WhatsApp</h3>
-                    <p class="text-slate-400">Open your cart and click Checkout. This sends your full order list directly to our WhatsApp.</p>
-                </div>
-                <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition">
-                    <div class="w-16 h-16 bg-slate-900 border border-cyan-500 text-cyan-400 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-[0_0_15px_rgba(6,182,212,0.3)]">3</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Pay & Activate</h3>
-                    <p class="text-slate-400">Receive payment details, transfer the amount, and get your software activated instantly!</p>
-                </div>
-            </div>
+    <section id="how-to-buy" class="bg-slate-900/50 py-20 border-y border-slate-800 text-center">
+        <h2 class="text-3xl font-bold mb-16 text-white uppercase tracking-wider">How to Buy in <span class="text-cyan-400">3 Easy Steps</span></h2>
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4">
+            <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 group hover:border-cyan-500 transition-all"><div class="w-12 h-12 bg-cyan-500 text-slate-950 rounded-full flex items-center justify-center font-bold mx-auto mb-6 shadow-lg">1</div><h3 class="text-white font-bold mb-2">Select Products</h3><p class="text-slate-400 text-sm">Choose and add items to your cart.</p></div>
+            <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 group hover:border-cyan-500 transition-all"><div class="w-12 h-12 bg-cyan-500 text-slate-950 rounded-full flex items-center justify-center font-bold mx-auto mb-6 shadow-lg">2</div><h3 class="text-white font-bold mb-2">Checkout</h3><p class="text-slate-400 text-sm">Open cart and click Checkout via WhatsApp.</p></div>
+            <div class="p-8 bg-slate-950/80 rounded-2xl border border-slate-800 group hover:border-cyan-500 transition-all"><div class="w-12 h-12 bg-cyan-500 text-slate-950 rounded-full flex items-center justify-center font-bold mx-auto mb-6 shadow-lg">3</div><h3 class="text-white font-bold mb-2">Activation</h3><p class="text-slate-400 text-sm">Pay and get your genuine activation code instantly.</p></div>
         </div>
     </section>
 
-    <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 class="text-3xl font-bold text-center mb-12 text-white">What Our <span class="text-cyan-400">Clients Say</span></h2>
-        <div id="reviewsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section id="reviews" class="max-w-7xl mx-auto px-4 py-20 overflow-hidden">
+        <h2 class="text-3xl font-bold text-center mb-12 text-white uppercase tracking-wider">Customer <span class="text-cyan-400">Reviews</span></h2>
+        <div class="relative group">
+            <div id="reviewsContainer" class="gap-6 pb-10"></div>
+            <div class="flex justify-center gap-4 mt-4">
+                <button onclick="scrollReviews('left')" class="w-10 h-10 rounded-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="scrollReviews('right')" class="w-10 h-10 rounded-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
+        </div>
     </section>
 
-    <footer class="bg-[#020617] border-t border-slate-800 pt-16 pb-8 relative overflow-hidden">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500"></div>
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h3 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-6">Next Gen Digital LK</h3>
-            <p class="text-slate-400 mb-8 max-w-md mx-auto">Sri Lanka's premier destination for genuine software activations and digital marketing solutions.</p>
-            <div class="flex justify-center space-x-6 mb-10 text-2xl">
-                <a href="https://www.facebook.com/profile.php?id=61576057352890" target="_blank" class="text-slate-500 hover:text-cyan-400 transition transform hover:scale-110"><i class="fa-brands fa-facebook"></i></a>
-                <a href="http://www.youtube.com/@nextgendigitallk" target="_blank" class="text-slate-500 hover:text-red-500 transition transform hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://wa.me/94755935689" target="_blank" class="text-slate-500 hover:text-green-400 transition transform hover:scale-110"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <p class="text-slate-600 text-sm">© 2026 Next Gen Digital LK. All rights reserved.</p>
+    <footer class="bg-[#020617] border-t border-slate-800 pt-16 pb-8 text-center px-4">
+        <h3 class="text-2xl font-black text-cyan-400 mb-6 uppercase tracking-widest">Next Gen Digital LK</h3>
+        
+        <div class="flex justify-center space-x-6 mb-10 text-2xl text-slate-500">
+            <a href="https://www.facebook.com/profile.php?id=61576057352890" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110"><i class="fa-brands fa-facebook"></i></a>
+            <a href="http://www.youtube.com/@nextgendigitallk" target="_blank" class="hover:text-red-500 transition transform hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://wa.me/94755935689" target="_blank" class="hover:text-green-400 transition transform hover:scale-110"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
+
+        <p class="text-slate-600 text-xs tracking-widest uppercase">© 2026 Next Gen Digital LK. Designed for Digital Excellence.</p>
     </footer>
 
-    <div id="productModal" class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-8 relative shadow-[0_0_40px_rgba(6,182,212,0.15)] transform scale-95 transition-transform duration-300" id="modalContent">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-3xl font-light leading-none transition">&times;</button>
-            
-            <h3 id="modalTitle" class="text-2xl font-bold text-white mb-2">Product Name</h3>
-            <p class="text-2xl font-extrabold text-cyan-400 mb-6" id="modalPrice">Rs. 0</p>
-            
-            <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-xl mb-8">
-                <p id="modalDescription" class="text-slate-300 text-sm font-medium leading-relaxed space-y-2"></p>
-            </div>
-
-            <button id="modalAddToCartBtn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-3.5 px-4 rounded-xl transition duration-300 flex items-center justify-center gap-2 shadow-lg">
-                <i class="fa-solid fa-cart-plus"></i> Add to Cart
-            </button>
+    <div id="productModal" class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 opacity-0 transition-all duration-300">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md p-8 relative scale-95 transition-all duration-300" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-3xl font-light leading-none">&times;</button>
+            <h3 id="modalTitle" class="text-2xl font-bold text-white mb-2 leading-snug pr-8">Product Name</h3>
+            <p class="text-3xl font-black text-cyan-400 mb-6" id="modalPrice">Rs. 0</p>
+            <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl mb-8 text-slate-300 text-sm leading-relaxed space-y-3" id="modalDescription"></div>
+            <button id="modalAddToCartBtn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
         </div>
     </div>
 
     <div id="cartSidebarOverlay" class="fixed inset-0 z-[70] hidden bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
-    <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-slate-900 border-l border-slate-800 z-[80] transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
-        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-            <h2 class="text-2xl font-bold text-white flex items-center gap-3"><i class="fa-solid fa-cart-shopping text-cyan-400"></i> Your Cart</h2>
-            <button onclick="toggleCart()" class="text-slate-400 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+    <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#020617] border-l border-slate-800 z-[80] transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        
+        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50 text-white font-bold text-xl uppercase tracking-widest">
+            <span class="flex items-center gap-3"><i class="fa-solid fa-cart-shopping text-cyan-400"></i> Your Cart</span>
+            <button onclick="toggleCart()" class="text-3xl hover:text-red-500 transition leading-none">&times;</button>
         </div>
         
-        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-3 bg-[#020617]">
             </div>
-
-        <div class="p-6 border-t border-slate-800 bg-slate-950">
+        
+        <div class="p-6 border-t border-slate-800 bg-slate-900/50">
             <div class="flex justify-between items-center mb-6">
-                <span class="text-slate-400 font-medium text-lg">Total</span>
-                <span id="cartTotal" class="text-2xl font-bold text-cyan-400">Rs. 0</span>
+                <span class="text-slate-400 font-bold uppercase tracking-widest text-sm">Total Price</span>
+                <span id="cartTotal" class="text-cyan-400 font-black text-2xl">Rs. 0</span>
             </div>
-            <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-400 text-slate-900 font-bold py-4 rounded-xl transition duration-300 flex justify-center items-center gap-2 shadow-lg">
+            <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-400 text-slate-950 font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] flex justify-center items-center gap-2 uppercase tracking-widest transition-all">
                 <i class="fa-brands fa-whatsapp text-xl"></i> Checkout via WhatsApp
             </button>
         </div>
     </div>
-
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 border border-cyan-500 text-white px-6 py-3 rounded-full shadow-2xl z-[90] transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-cyan-400"></i>
-        <span id="toastMessage">Item added to cart!</span>
-    </div>
+    
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 border border-cyan-500 text-white px-8 py-4 rounded-full shadow-2xl z-[90] transform translate-y-20 opacity-0 transition-all duration-300 uppercase font-bold text-xs tracking-widest">Item Added</div>
 
     <script>
+        // --- Full Product List ---
         const products = [
-            { name: "Autodesk Full Bundle", price: 4000 }, { name: "3ds Max", price: 2000 }, { name: "Flame", price: 2000 }, { name: "AutoCAD Web", price: 2000 }, { name: "Autodesk Construction Cloud", price: 2000 }, { name: "AutoCAD", price: 2000 }, { name: "AutoCAD LT", price: 2000 }, { name: "Advance Steel", price: 2000 }, { name: "Alias AutoStudio", price: 2000 }, { name: "Arnold", price: 2000 }, { name: "Fabrication CADmep", price: 2000 }, { name: "Fabrication CAMduct", price: 2000 }, { name: "Civil 3D", price: 2000 }, { name: "Cloud Worksharing", price: 2000 }, { name: "Fabrication ESTmep", price: 2000 }, { name: "Fusion with FeatureCAM", price: 2000 }, { name: "Fusion with Moldflow Adviser", price: 2000 }, { name: "Factory Design Utilities", price: 2000 }, { name: "Fusion", price: 2000 }, { name: "Golaem", price: 2000 }, { name: "Inventor Professional", price: 2000 }, { name: "Inventor Tolerance Analysis", price: 2000 }, { name: "InfraWorks", price: 2000 }, { name: "Maya", price: 2000 }, { name: "Mudbox", price: 2000 }, { name: "Moldflow Insight", price: 2000 }, { name: "MotionBuilder", price: 2000 }, { name: "Navisworks Manage", price: 2000 }, { name: "Netfabb – Premium", price: 2000 }, { name: "Inventor Nastran", price: 2000 }, { name: "Point Layout", price: 2000 }, { name: "PowerInspect – Ultimate", price: 2000 }, { name: "PowerShape – Ultimate", price: 2000 }, { name: "ReCap Pro", price: 2000 }, { name: "Robot Structural Analysis Professional", price: 2000 }, { name: "Revit", price: 2000 }, { name: "Structural Bridge Design", price: 2000 }, { name: "CFD – Ultimate", price: 2000 }, { name: "Forma", price: 2000 }, { name: "Inventor Nesting", price: 2000 }, { name: "Vehicle Tracking", price: 2000 }, { name: "Vault Professional", price: 2000 }, { name: "VRED Professional", price: 2000 }, { name: "Canva Pro", price: 400 }, { name: "Adobe Bundle (Pre Activated) 2025", price: 1500 }, { name: "Sketch Up (Pre Activated) 2023", price: 990 }
+            // Autodesk
+            { name: "Autodesk Full Bundle", price: 4000, cat: "Autodesk" },
+            { name: "AutoCAD", price: 2000, cat: "Autodesk" },
+            { name: "Revit", price: 2000, cat: "Autodesk" },
+            { name: "3ds Max", price: 2000, cat: "Autodesk" },
+            { name: "Maya", price: 2000, cat: "Autodesk" },
+            { name: "Civil 3D", price: 2000, cat: "Autodesk" },
+            { name: "InfraWorks", price: 2000, cat: "Autodesk" },
+            { name: "Navisworks Manage", price: 2000, cat: "Autodesk" },
+            { name: "Inventor Professional", price: 2000, cat: "Autodesk" },
+            { name: "AutoCAD LT", price: 2000, cat: "Autodesk" },
+            { name: "Fusion", price: 2000, cat: "Autodesk" },
+            { name: "Advance Steel", price: 2000, cat: "Autodesk" },
+            { name: "Alias AutoStudio", price: 2000, cat: "Autodesk" },
+            { name: "Arnold", price: 2000, cat: "Autodesk" },
+            { name: "Fabrication (CADmep, CAMduct, ESTmep)", price: 2000, cat: "Autodesk" },
+            { name: "Cloud Worksharing", price: 2000, cat: "Autodesk" },
+            { name: "Factory Design Utilities", price: 2000, cat: "Autodesk" },
+            { name: "Golaem", price: 2000, cat: "Autodesk" },
+            { name: "Inventor (Nastran, Nesting, Tolerance Analysis)", price: 2000, cat: "Autodesk" },
+            { name: "Mudbox", price: 2000, cat: "Autodesk" },
+            { name: "Moldflow (Adviser, Insight)", price: 2000, cat: "Autodesk" },
+            { name: "MotionBuilder", price: 2000, cat: "Autodesk" },
+            { name: "Netfabb – Premium", price: 2000, cat: "Autodesk" },
+            { name: "Point Layout", price: 2000, cat: "Autodesk" },
+            { name: "PowerInspect – Ultimate", price: 2000, cat: "Autodesk" },
+            { name: "PowerShape – Ultimate", price: 2000, cat: "Autodesk" },
+            { name: "ReCap Pro", price: 2000, cat: "Autodesk" },
+            { name: "Robot Structural Analysis Professional", price: 2000, cat: "Autodesk" },
+            { name: "Structural Bridge Design", price: 2000, cat: "Autodesk" },
+            { name: "CFD – Ultimate", price: 2000, cat: "Autodesk" },
+            { name: "Forma", price: 2000, cat: "Autodesk" },
+            { name: "Vehicle Tracking", price: 2000, cat: "Autodesk" },
+            { name: "Vault Professional", price: 2000, cat: "Autodesk" },
+            { name: "VRED Professional", price: 2000, cat: "Autodesk" },
+            { name: "Flame", price: 2000, cat: "Autodesk" },
+            { name: "AutoCAD Web", price: 2000, cat: "Autodesk" },
+            { name: "Autodesk Construction Cloud", price: 2000, cat: "Autodesk" },
+
+            // Adobe
+            { name: "Adobe Full Bundle (Pre Activated) 2025", price: 1500, cat: "Adobe" },
+            { name: "Adobe PhotoShop (Pre Activated) 2026", price: 800, cat: "Adobe" },
+            { name: "Adobe PhotoShop (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe XD (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Premiere Pro (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Media Encoder (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Lightroom (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe InDesign (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Illustrator (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Bridge (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Audition (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Animate (Pre Activated) 2024", price: 500, cat: "Adobe" },
+            { name: "Adobe After Effects (Pre Activated) 2025", price: 500, cat: "Adobe" },
+            { name: "Adobe Acrobat Pro (Pre Activated) 2025", price: 500, cat: "Adobe" },
+
+            // Digital Assets
+            { name: "1600+ WordPress Premium Templates", price: 600, cat: "Digital Assets" },
+            { name: "500+ Stylish Sinhala Fonts", price: 400, cat: "Digital Assets" },
+            { name: "15M All Digital Assets Bundle", price: 1200, cat: "Digital Assets" },
+            { name: "Graphic Design Assets", price: 500, cat: "Digital Assets" },
+            { name: "Video Editing Assets", price: 500, cat: "Digital Assets" },
+            { name: "251K+ Stock Videos", price: 600, cat: "Digital Assets" },
+            { name: "300+ Mini Games", price: 600, cat: "Digital Assets" },
+            { name: "15000+ Chatgpt Prompts", price: 600, cat: "Digital Assets" },
+
+            // Others
+            { name: "Canva Pro", price: 400, cat: "Others" },
+            { name: "Sketch Up (Pre Activated) 2023", price: 990, cat: "Others" }
         ];
 
         let cart = [];
-        let currentViewingProduct = null;
+        let currentCategory = 'All';
 
-        const grid = document.getElementById('productGrid');
-        const searchInput = document.getElementById('searchInput');
-        const modal = document.getElementById('productModal');
-        const modalContent = document.getElementById('modalContent');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const cartSidebarOverlay = document.getElementById('cartSidebarOverlay');
-        const toast = document.getElementById('toast');
-
-        // Render Products
         function renderProducts(items) {
-            grid.innerHTML = '';
-            if(items.length === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center py-10"><i class="fa-solid fa-box-open text-4xl text-slate-600 mb-3"></i><p class="text-slate-400 text-lg">No products found matching your search.</p></div>';
-                return;
-            }
-            items.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'bg-slate-900 border border-slate-700 hover:border-cyan-500/50 rounded-xl p-5 flex flex-col justify-between transition-colors shadow-lg shadow-black/30';
-                
-                const isBundle = product.name.includes("Full Bundle");
-                
-                card.innerHTML = `
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(p => `
+                <div class="bg-slate-900 border border-slate-700 hover:border-cyan-500/50 rounded-2xl p-6 transition flex flex-col justify-between shadow-lg">
                     <div class="mb-5">
-                        ${isBundle ? '<span class="inline-block bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded mb-3">BEST VALUE</span>' : ''}
-                        <h3 class="text-[1.1rem] font-bold text-white mb-2 leading-tight">${product.name}</h3>
-                        <p class="text-cyan-400 font-semibold text-base">Rs. ${product.price.toLocaleString()}</p>
+                        ${p.name.includes("Full Bundle") || p.name.includes("15M All Digital") ? '<span class="inline-block bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded mb-3">BEST VALUE</span>' : ''}
+                        <h3 class="text-white font-bold mb-1 line-clamp-2">${p.name}</h3>
+                        <p class="text-cyan-400 font-black text-lg">Rs. ${p.price.toLocaleString()}</p>
                     </div>
-                    <button onclick="openModal('${product.name}', ${product.price})" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-2.5 rounded-lg transition duration-200 text-sm">
-                        View Details
-                    </button>
-                `;
-                grid.appendChild(card);
-            });
+                    <button onclick="openModal('${p.name}', ${p.price}, '${p.cat}')" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-sm">View Details</button>
+                </div>`).join('');
         }
 
-        // Live Search
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
-            renderProducts(filtered);
-        });
+        function filterCategory(cat) {
+            currentCategory = cat;
+            const btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('active', 'bg-cyan-500', 'text-slate-950', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+                if(btn.innerText === cat || (cat === 'All' && btn.innerText === 'All Products')) {
+                    btn.classList.add('active', 'bg-cyan-500', 'text-slate-950', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
+                    btn.classList.remove('bg-slate-900', 'text-slate-300');
+                }
+            });
 
-        // Product Modal Logic
-        function openModal(name, price) {
-            currentViewingProduct = { name, price };
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalPrice').innerText = `Rs. ${price.toLocaleString()}`;
+            document.getElementById('searchInput').value = '';
+            if (cat === 'All') {
+                renderProducts(products);
+            } else {
+                renderProducts(products.filter(p => p.cat === cat));
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(); tomorrow.setHours(24, 0, 0, 0);
+            const diff = tomorrow - now;
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('hours').innerText = String(h).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+
+        function openModal(n, p, cat) {
+            document.getElementById('modalTitle').innerText = n;
+            document.getElementById('modalPrice').innerText = `Rs. ${p.toLocaleString()}`;
             
             let descHTML = "";
-            if(name.includes("Canva")) {
-                descHTML = `<div class="flex items-start gap-3"><i class="fa-solid fa-star text-cyan-400 mt-1"></i><span>3 Year Activations With 01 Year Warranty</span></div>
-                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-envelope text-cyan-400 mt-1"></i><span>Customer Email Activations</span></div>`;
-            } else if(name.includes("Adobe") || name.includes("Sketch Up")) {
-                descHTML = `<div class="flex items-start gap-3"><i class="fa-brands fa-google-drive text-cyan-400 mt-1"></i><span>Direct Google Drive Access</span></div>`;
+            const iconClass = "text-cyan-400 text-lg w-6 text-center flex-shrink-0"; 
+
+            if (cat === "Autodesk") {
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Licence Valid Until 2028 June</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-envelope ${iconClass}"></i><span>Customer Email Activations</span></div>`;
+            } else if (n.includes("Canva Pro")) {
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime Access & Warranty</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-envelope ${iconClass}"></i><span>Customer Email Activation</span></div>`;
+            } else if (cat === "Adobe") {
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-brands fa-google-drive ${iconClass}"></i><span class="font-bold text-white">Direct Google Drive Access 📁</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-bolt ${iconClass}"></i><span>Instant Download Link Provided</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime with 1 year warranty</span></div>`;
+            } else if (cat === "Digital Assets") {
+                // Fixed: Digital Assets without "Pre-Activated"
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-brands fa-google-drive ${iconClass}"></i><span class="font-bold text-white">Direct Google Drive Access 📁</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-bolt ${iconClass}"></i><span>Instant Download Link Provided</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime Validity</span></div>`;
             } else {
-                descHTML = `<div class="flex items-start gap-3"><i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i><span>Licence Valid Until 2028 June 01</span></div>
-                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-layer-group text-cyan-400 mt-1"></i><span>Supported Versions: 2023, 2024, 2025, 2026</span></div>
-                            <div class="flex items-start gap-3 mt-3"><i class="fa-solid fa-envelope text-cyan-400 mt-1"></i><span>Customer Email Activations</span></div>`;
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-brands fa-google-drive ${iconClass}"></i><span class="font-bold text-white">Direct Google Drive Access 📁</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-bolt ${iconClass}"></i><span>Instant Download Link Provided</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime Validity & Pre-Activated</span></div>`;
             }
+
             document.getElementById('modalDescription').innerHTML = descHTML;
-
-            document.getElementById('modalAddToCartBtn').onclick = () => {
-                addToCart(currentViewingProduct);
-                closeModal();
-            };
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-            }, 10);
+            document.getElementById('productModal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('productModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
+            document.getElementById('modalAddToCartBtn').onclick = () => { addToCart({name:n, price:p}); closeModal(); };
         }
 
-        function closeModal() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        // Cart Logic
-        function addToCart(product) {
-            cart.push(product);
-            updateCartUI();
-            showToast(`${product.name} added to cart!`);
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
+        function closeModal() { document.getElementById('productModal').classList.add('opacity-0'); document.getElementById('modalContent').classList.add('scale-95'); setTimeout(() => document.getElementById('productModal').classList.add('hidden'), 300); }
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('translate-x-full'); document.getElementById('cartSidebarOverlay').classList.toggle('hidden'); }
+        function addToCart(p) { cart.push(p); updateCartUI(); showToast("Added to Cart!"); }
+        
         function updateCartUI() {
             const container = document.getElementById('cartItemsContainer');
-            const totalEl = document.getElementById('cartTotal');
-            const badge = document.getElementById('cartCountBadge');
-            
-            if(cart.length > 0) {
-                badge.innerText = cart.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-
-            container.innerHTML = '';
+            document.getElementById('cartCountBadge').innerText = cart.length;
+            document.getElementById('cartCountBadge').classList.toggle('hidden', cart.length === 0);
             let total = 0;
-
+            
             if(cart.length === 0) {
-                container.innerHTML = '<div class="text-center text-slate-500 mt-10"><i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i><p>Your cart is empty</p></div>';
+                // Beautiful Empty Cart UI
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-slate-500 opacity-70 mt-20">
+                        <i class="fa-solid fa-cart-arrow-down text-6xl mb-6 text-slate-600"></i>
+                        <p class="text-base font-medium">Your cart is feeling empty</p>
+                        <button onclick="toggleCart()" class="mt-6 border border-cyan-500/50 text-cyan-400 px-6 py-2 rounded-full hover:bg-cyan-500 hover:text-slate-900 transition text-sm font-bold">Start Shopping</button>
+                    </div>`;
             } else {
-                cart.forEach((item, index) => {
-                    total += item.price;
-                    const el = document.createElement('div');
-                    el.className = 'flex justify-between items-center bg-slate-950 border border-slate-800 p-4 rounded-xl';
-                    el.innerHTML = `
-                        <div class="flex-1 pr-4">
-                            <h4 class="text-white font-semibold text-sm line-clamp-2 leading-snug">${item.name}</h4>
-                            <p class="text-cyan-400 font-bold text-sm mt-1">Rs. ${item.price.toLocaleString()}</p>
+                // Professional Cart Items UI
+                container.innerHTML = cart.map((p, i) => {
+                    total += p.price;
+                    return `
+                    <div class="group bg-slate-900 border border-slate-700/60 p-4 rounded-xl flex gap-4 justify-between items-center hover:border-cyan-500/40 transition-all shadow-sm">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-slate-200 font-semibold text-sm mb-1 truncate" title="${p.name}">${p.name}</h4>
+                            <p class="text-cyan-400 font-black text-sm">Rs. ${p.price.toLocaleString()}</p>
                         </div>
-                        <button onclick="removeFromCart(${index})" class="w-8 h-8 flex items-center justify-center bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition">
-                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        <button onclick="cart.splice(${i},1);updateCartUI();" class="text-slate-500 hover:text-red-500 bg-slate-950 border border-slate-800 hover:border-red-500/30 w-10 h-10 rounded-lg flex items-center justify-center transition-all flex-shrink-0 hover:shadow-[0_0_10px_rgba(239,68,68,0.2)]" title="Remove">
+                            <i class="fa-solid fa-trash-can"></i>
                         </button>
-                    `;
-                    container.appendChild(el);
-                });
+                    </div>`;
+                }).join('');
             }
-
-            totalEl.innerText = `Rs. ${total.toLocaleString()}`;
+            document.getElementById('cartTotal').innerText = `Rs. ${total.toLocaleString()}`;
         }
 
-        function toggleCart() {
-            const isClosed = cartSidebar.classList.contains('translate-x-full');
-            if(isClosed) {
-                cartSidebar.classList.remove('translate-x-full');
-                cartSidebarOverlay.classList.remove('hidden');
-                setTimeout(() => cartSidebarOverlay.classList.remove('opacity-0'), 10);
-            } else {
-                cartSidebar.classList.add('translate-x-full');
-                cartSidebarOverlay.classList.add('opacity-0');
-                setTimeout(() => cartSidebarOverlay.classList.add('hidden'), 300);
-            }
-        }
-
-        function checkoutWhatsApp() {
-            if(cart.length === 0) {
-                showToast("Your cart is empty!");
-                return;
-            }
-            
-            let total = 0;
-            let itemList = cart.map((item, index) => {
-                total += item.price;
-                return `${index + 1}. ${item.name}`;
-            }).join('%0A');
-
-            const message = `Hello Next Gen Digital LK! 🇱🇰%0AI want to buy the following items:%0A%0A${itemList}%0A%0A*Total Value: Rs. ${total.toLocaleString()}*%0A%0APlease send me the payment details.`;
-            const waLink = `https://wa.me/94755935689?text=${message}`;
-            
-            window.open(waLink, '_blank');
-        }
-
-        // Toast Notification
         function showToast(msg) {
-            document.getElementById('toastMessage').innerText = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 2500);
         }
 
-        // Fetch CSV Reviews
+        function scrollReviews(direction) {
+            const container = document.getElementById('reviewsContainer');
+            container.scrollBy({ left: direction === 'left' ? -container.clientWidth : container.clientWidth, behavior: 'smooth' });
+        }
+
         async function loadReviews() {
-            const revGrid = document.getElementById('reviewsGrid');
+            const container = document.getElementById('reviewsContainer');
             try {
                 const response = await fetch('reviews.csv');
-                if (!response.ok) throw new Error('CSV not found');
+                if(!response.ok) throw new Error();
                 const data = await response.text();
-                
-                const lines = data.split('\n').filter(line => line.trim() !== '');
-                if (lines.length === 0 || (lines.length === 1 && lines[0].includes('CustomerName'))) throw new Error('No data');
-
-                revGrid.innerHTML = '';
-                let startIndex = lines[0].includes('CustomerName') ? 1 : 0;
-                
-                for(let i = startIndex; i < lines.length; i++) {
-                    const [name, ...reviewTextArr] = lines[i].split(',');
-                    const text = reviewTextArr.join(','); 
-                    
-                    if(name && text) {
-                        const card = document.createElement('div');
-                        card.className = 'bg-slate-900 border border-slate-800 rounded-2xl p-8 relative';
-                        card.innerHTML = `
-                            <i class="fa-solid fa-quote-left text-4xl text-slate-800 absolute top-4 left-4 -z-0"></i>
-                            <div class="relative z-10">
-                                <p class="text-white text-lg font-medium mb-6 leading-relaxed">"${text.trim()}"</p>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center border border-cyan-500/30">
-                                        <i class="fa-solid fa-user text-cyan-400 text-sm"></i>
-                                    </div>
-                                    <p class="text-cyan-400 font-bold uppercase tracking-wider text-sm">${name.trim()}</p>
-                                </div>
-                            </div>
-                        `;
-                        revGrid.appendChild(card);
-                    }
-                }
-            } catch (error) {
-                revGrid.innerHTML = `
-                    <div class="col-span-full text-center text-slate-500 bg-slate-900 border border-slate-800 rounded-2xl p-10">
-                        <i class="fa-regular fa-comment-dots text-4xl mb-3"></i>
-                        <p>Customer reviews will appear here soon.</p>
-                        <p class="text-sm mt-2">(Create <code>reviews.csv</code> in the same folder to add reviews)</p>
-                    </div>`;
-            }
+                const lines = data.split('\n').filter(l => l.trim() !== '');
+                container.innerHTML = lines.slice(lines[0].includes('CustomerName') ? 1 : 0).map(l => {
+                    const [n, ...t] = l.split(',');
+                    return `<div class="review-card px-3"><div class="bg-slate-900 border border-slate-800 p-10 rounded-3xl h-full flex flex-col justify-between shadow-lg"><p class="text-white italic text-lg leading-relaxed mb-8">"${t.join(',').trim()}"</p><div class="flex items-center gap-3"><div class="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center text-cyan-400 font-bold uppercase border border-cyan-500/30">${n.trim().charAt(0)}</div><p class="text-cyan-400 font-bold uppercase tracking-widest text-xs">${n.trim()}</p></div></div></div>`;
+                }).join('');
+            } catch (e) { container.innerHTML = '<p class="text-slate-500 text-center col-span-full py-10">Add a reviews.csv file to display customer reviews.</p>'; }
         }
+
+        // --- Beautiful WhatsApp Message Formatting ---
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return showToast("Cart is empty!");
+            
+            // Build the item list cleanly
+            let itemList = cart.map((p, i) => `▪️ ${p.name}  👉  Rs. ${p.price.toLocaleString()}`).join('%0A');
+            let totalAmount = document.getElementById('cartTotal').innerText;
+            
+            // Compose the message
+            let msg = `Hello Next Gen Digital LK! 🇱🇰%0A%0AI would like to purchase the following items:%0A%0A${itemList}%0A%0A======================%0A*Total Amount : ${totalAmount}*%0A======================%0A%0APlease send me the payment details to proceed.`;
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/94755935689?text=${msg}`, '_blank');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', e => {
+            const term = e.target.value.toLowerCase();
+            let itemsToSearch = currentCategory === 'All' ? products : products.filter(p => p.cat === currentCategory);
+            renderProducts(itemsToSearch.filter(p => p.name.toLowerCase().includes(term)));
+        });
 
         // Initialize
         renderProducts(products);
         loadReviews();
+        updateCountdown();
         updateCartUI();
     </script>
 </body>

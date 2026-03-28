@@ -48,7 +48,7 @@
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="#home" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Home</a>
-                    <a href="#special-offer" class="animate-flash font-bold text-sm flex items-center gap-1"><i class="fa-solid fa-fire text-xs"></i> Special Offer</a>
+                    <a href="#special-offer" class="animate-flash font-bold text-sm flex items-center gap-1"><i class="fa-solid fa-fire text-xs"></i> Special Offers</a>
                     <a href="#products" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Products</a>
                     <a href="#how-to-buy" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">How to Buy</a>
                     <a href="#reviews" class="text-slate-300 hover:text-cyan-400 font-medium transition text-sm">Reviews</a>
@@ -70,31 +70,73 @@
         </a>
     </section>
 
-    <section id="special-offer" class="max-w-5xl mx-auto px-4 py-16">
-        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-cyan-500/50 rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
-            
-            <div class="flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
-                <div class="text-center md:text-left space-y-4">
-                    <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Limited Time Deal</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">Autodesk <br><span class="text-cyan-400">Full Bundle</span></h2>
-                    <p class="text-slate-400 text-lg italic">Complete Access to 40+ Premium Softwares!</p>
-                    <div class="flex items-center justify-center md:justify-start gap-4">
-                        <span class="text-4xl font-bold text-white">Rs. 4,000</span>
-                        <span class="text-slate-500 line-through text-xl">Rs. 85,000</span>
-                    </div>
-                </div>
+    <section id="special-offer" class="max-w-7xl mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">Today's <span class="text-cyan-400">Flash Deals</span></h2>
+            <p class="text-slate-400 mt-2 italic">Grab these premium bundles before the timer runs out!</p>
+        </div>
 
-                <div class="bg-slate-900 border border-slate-700 p-8 rounded-2xl text-center min-w-[280px]">
-                    <p class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">Sale Ends In</p>
-                    <div id="countdown" class="flex justify-center gap-4 text-white">
-                        <div class="flex flex-col"><span id="hours" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Hours</span></div>
-                        <div class="flex flex-col"><span id="minutes" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Mins</span></div>
-                        <div class="flex flex-col"><span id="seconds" class="text-3xl font-black text-cyan-400 bg-slate-800 px-3 py-2 rounded-lg">00</span><span class="text-[10px] mt-1 text-slate-500 uppercase">Secs</span></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="bg-gradient-to-br from-[#1e1b4b] to-slate-950 border-2 border-indigo-500/50 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-[0_0_30px_rgba(79,70,229,0.15)] group hover:border-indigo-400 transition-all">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-8 relative z-10">
+                    <div class="text-center sm:text-left space-y-4 w-full sm:w-1/2">
+                        <span class="bg-red-600 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse inline-block">Hot Deal</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">Adobe CC + Stock <br><span class="text-indigo-400 text-xl md:text-2xl">01 Month Access</span></h2>
+                        <ul class="text-slate-300 text-xs md:text-sm space-y-2 text-left mx-auto sm:mx-0 w-max">
+                            <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i>1000 FireFly AI Credits</li>
+                            <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Direct Email Activation</li>
+                            <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i>Win / Mac / Android</li>
+                        </ul>
+                        <div class="flex items-center justify-center sm:justify-start gap-4 pt-2">
+                            <span class="text-4xl font-black text-white">Rs. 1,300</span>
+                        </div>
                     </div>
-                    <button onclick="openModal('Autodesk Full Bundle', 4000, 'Autodesk')" class="mt-8 w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg uppercase tracking-widest">Buy Bundle Now</button>
+
+                    <div class="bg-slate-900/80 border border-slate-700 p-6 rounded-2xl text-center w-full sm:w-1/2 shadow-inner">
+                        <p class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">Sale Ends In</p>
+                        <div class="flex justify-center gap-2 md:gap-4 text-white">
+                            <div class="flex flex-col"><span class="timer-hours text-2xl md:text-3xl font-black text-indigo-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Hours</span></div>
+                            <div class="flex flex-col"><span class="timer-minutes text-2xl md:text-3xl font-black text-indigo-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Mins</span></div>
+                            <div class="flex flex-col"><span class="timer-seconds text-2xl md:text-3xl font-black text-indigo-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Secs</span></div>
+                        </div>
+                        <button onclick="openModal('Adobe Creative Cloud All Apps + Stock (01 Month)', 1300, 'Adobe')" class="mt-6 w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-3 rounded-xl transition shadow-lg uppercase tracking-widest text-sm">Buy Deal Now</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-cyan-500/50 rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.15)] group hover:border-cyan-400 transition-all">
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-8 relative z-10">
+                    <div class="text-center sm:text-left space-y-4 w-full sm:w-1/2">
+                        <span class="bg-red-600 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse inline-block">Best Seller</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">Autodesk <br><span class="text-cyan-400 text-xl md:text-2xl">Full Bundle</span></h2>
+                        <ul class="text-slate-300 text-xs md:text-sm space-y-2 text-left mx-auto sm:mx-0 w-max">
+                            <li><i class="fa-solid fa-check text-cyan-400 mr-2"></i>Access 40+ Premium Softwares</li>
+                            <li><i class="fa-solid fa-check text-cyan-400 mr-2"></i>Licence Until 2028 June</li>
+                            <li><i class="fa-solid fa-check text-cyan-400 mr-2"></i>Your Own Email Linked</li>
+                        </ul>
+                        <div class="flex items-center justify-center sm:justify-start gap-3 pt-2">
+                            <span class="text-4xl font-black text-white">Rs. 4,000</span>
+                            <span class="text-slate-500 line-through text-sm md:text-lg">Rs. 85,000</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/80 border border-slate-700 p-6 rounded-2xl text-center w-full sm:w-1/2 shadow-inner">
+                        <p class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">Sale Ends In</p>
+                        <div class="flex justify-center gap-2 md:gap-4 text-white">
+                            <div class="flex flex-col"><span class="timer-hours text-2xl md:text-3xl font-black text-cyan-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Hours</span></div>
+                            <div class="flex flex-col"><span class="timer-minutes text-2xl md:text-3xl font-black text-cyan-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Mins</span></div>
+                            <div class="flex flex-col"><span class="timer-seconds text-2xl md:text-3xl font-black text-cyan-400 bg-slate-800 px-2 py-2 rounded-lg">00</span><span class="text-[9px] md:text-[10px] mt-1 text-slate-500 uppercase">Secs</span></div>
+                        </div>
+                        <button onclick="openModal('Autodesk Full Bundle', 4000, 'Autodesk')" class="mt-6 w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg uppercase tracking-widest text-sm">Buy Bundle Now</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -226,6 +268,7 @@
             { name: "Autodesk Construction Cloud", price: 2000, cat: "Autodesk" },
 
             // Adobe
+            { name: "Adobe Creative Cloud All Apps + Stock (01 Month)", price: 1300, cat: "Adobe" },
             { name: "Adobe Full Bundle (Pre Activated) 2025", price: 1500, cat: "Adobe" },
             { name: "Adobe PhotoShop (Pre Activated) 2026", price: 800, cat: "Adobe" },
             { name: "Adobe PhotoShop (Pre Activated) 2025", price: 500, cat: "Adobe" },
@@ -264,7 +307,7 @@
             grid.innerHTML = items.map(p => `
                 <div class="bg-slate-900 border border-slate-700 hover:border-cyan-500/50 rounded-2xl p-6 transition flex flex-col justify-between shadow-lg">
                     <div class="mb-5">
-                        ${p.name.includes("Full Bundle") || p.name.includes("15M All Digital") ? '<span class="inline-block bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded mb-3">BEST VALUE</span>' : ''}
+                        ${(p.name.includes("Full Bundle") || p.name.includes("15M All Digital") || p.name.includes("Creative Cloud")) ? '<span class="inline-block bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded mb-3">BEST VALUE</span>' : ''}
                         <h3 class="text-white font-bold mb-1 line-clamp-2">${p.name}</h3>
                         <p class="text-cyan-400 font-black text-lg">Rs. ${p.price.toLocaleString()}</p>
                     </div>
@@ -299,9 +342,11 @@
             const h = Math.floor(diff / 3600000);
             const m = Math.floor((diff % 3600000) / 60000);
             const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById('hours').innerText = String(h).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+            
+            // Updates ALL timers on the page using classes instead of IDs
+            document.querySelectorAll('.timer-hours').forEach(el => el.innerText = String(h).padStart(2, '0'));
+            document.querySelectorAll('.timer-minutes').forEach(el => el.innerText = String(m).padStart(2, '0'));
+            document.querySelectorAll('.timer-seconds').forEach(el => el.innerText = String(s).padStart(2, '0'));
         }
         setInterval(updateCountdown, 1000);
 
@@ -312,7 +357,11 @@
             let descHTML = "";
             const iconClass = "text-cyan-400 text-lg w-6 text-center flex-shrink-0"; 
 
-            if (cat === "Autodesk") {
+            if (n.includes("Creative Cloud")) {
+                descHTML = `<div class="flex items-center gap-3"><i class="fa-solid fa-envelope text-indigo-400 text-lg w-6 text-center flex-shrink-0"></i><span class="font-bold text-white">Direct Email Activation 📧</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-star text-indigo-400 text-lg w-6 text-center flex-shrink-0"></i><span>1000 Firefly AI Credits & Stock Included</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-brands fa-windows text-indigo-400 text-lg w-6 text-center flex-shrink-0"></i><span>Works on Windows / Mac / Android</span></div>`;
+            } else if (cat === "Autodesk") {
                 descHTML = `<div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Licence Valid Until 2028 June</span></div>
                             <div class="flex items-center gap-3"><i class="fa-solid fa-envelope ${iconClass}"></i><span>Customer Email Activations</span></div>`;
             } else if (n.includes("Canva Pro")) {
@@ -323,7 +372,6 @@
                             <div class="flex items-center gap-3"><i class="fa-solid fa-bolt ${iconClass}"></i><span>Instant Download Link Provided</span></div>
                             <div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime with 1 year warranty</span></div>`;
             } else if (cat === "Digital Assets") {
-                // Fixed: Digital Assets without "Pre-Activated"
                 descHTML = `<div class="flex items-center gap-3"><i class="fa-brands fa-google-drive ${iconClass}"></i><span class="font-bold text-white">Direct Google Drive Access 📁</span></div>
                             <div class="flex items-center gap-3"><i class="fa-solid fa-bolt ${iconClass}"></i><span>Instant Download Link Provided</span></div>
                             <div class="flex items-center gap-3"><i class="fa-solid fa-star ${iconClass}"></i><span>Lifetime Validity</span></div>`;
@@ -350,7 +398,6 @@
             let total = 0;
             
             if(cart.length === 0) {
-                // Beautiful Empty Cart UI
                 container.innerHTML = `
                     <div class="flex flex-col items-center justify-center h-full text-slate-500 opacity-70 mt-20">
                         <i class="fa-solid fa-cart-arrow-down text-6xl mb-6 text-slate-600"></i>
@@ -358,7 +405,6 @@
                         <button onclick="toggleCart()" class="mt-6 border border-cyan-500/50 text-cyan-400 px-6 py-2 rounded-full hover:bg-cyan-500 hover:text-slate-900 transition text-sm font-bold">Start Shopping</button>
                     </div>`;
             } else {
-                // Professional Cart Items UI
                 container.innerHTML = cart.map((p, i) => {
                     total += p.price;
                     return `
@@ -402,18 +448,13 @@
             } catch (e) { container.innerHTML = '<p class="text-slate-500 text-center col-span-full py-10">Add a reviews.csv file to display customer reviews.</p>'; }
         }
 
-        // --- Beautiful WhatsApp Message Formatting ---
         function checkoutWhatsApp() {
             if(cart.length === 0) return showToast("Cart is empty!");
-            
-            // Build the item list cleanly
             let itemList = cart.map((p, i) => `▪️ ${p.name}  👉  Rs. ${p.price.toLocaleString()}`).join('%0A');
             let totalAmount = document.getElementById('cartTotal').innerText;
             
-            // Compose the message
             let msg = `Hello Next Gen Digital LK! 🇱🇰%0A%0AI would like to purchase the following items:%0A%0A${itemList}%0A%0A======================%0A*Total Amount : ${totalAmount}*%0A======================%0A%0APlease send me the payment details to proceed.`;
             
-            // Open WhatsApp
             window.open(`https://wa.me/94755935689?text=${msg}`, '_blank');
         }
 
